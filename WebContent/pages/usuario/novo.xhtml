@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="corpo">
+		<h1>Adição de Usuário</h1>
+		<h:form id="form">
+				<p:outputLabel for="nome" value="Nome:"></p:outputLabel>
+				<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+					styleClass="texto-longo" required="true" label="Nome">
+				</p:inputText>
+				
+				<p:outputLabel for="login" value="Login:"></p:outputLabel>
+				<p:inputText id="login" value="#{usuarioBean.usuario.login}"
+				required="true" label="Login">
+					<f:validateLength maximum="20" minimum="4"></f:validateLength>
+					<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+				</p:inputText>
+				
+				<p:outputLabel for="senha" value="Senha:" ></p:outputLabel>
+				<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+				required="true" label="Senha" validator="senhaForte"/>
+				<div class="acoes-principais">
+					<p:commandButton value="Salvar" action="#{usuarioBean.gravar}">
+						<f:ajax render="@form :msg" execute="@form"></f:ajax>
+					</p:commandButton>&#160;
+					<p:commandButton value="Voltar" action="lista.xhtml" immediate="true">
+						<f:ajax/>
+					</p:commandButton>
+				</div>
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

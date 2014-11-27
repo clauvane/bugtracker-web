@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="corpo">
+		<h1>Listagem de Usuários</h1>
+		<h:form id="form">
+			<t:saveState value="#{usuarioBean.usuarios}"></t:saveState>
+
+			<p:dataTable value="#{usuarioBean.usuarios}" var="usuario" border="1"
+				styleClass="dados" rowClasses="impar, par" paginator="true" rows="2">
+				<p:column headerText="ID">
+				#{usuario.id}
+			</p:column>
+				<p:column headerText="Nome">
+				#{usuario.nome}
+			</p:column>
+				<p:column headerText="Login">
+				#{usuario.login}
+			</p:column>
+				<p:column headerText="Ações">
+					<p:commandLink value="Excuir"
+						action="#{usuarioBean.excluir(usuario)}"></p:commandLink>&#160;
+							<p:commandLink value="Editar" action="editar.xhtml" ajax="true" update="@form">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}"></f:setPropertyActionListener>
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<div class="acoes-principais">
+				<h:commandButton value="Novo" action="novo.xhtml">
+					<p:ajax render="@form"></p:ajax>
+				</h:commandButton>
+				&#160;
+				<h:commandButton value="Listar" action="#{usuarioBean.lista}">
+					<p:ajax update="form"></p:ajax>
+				</h:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

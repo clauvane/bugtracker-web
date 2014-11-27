@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="corpo">
+		<h1>Listagem de Bugs</h1>
+		<h:form id="form">
+		<t:saveState value="#{bugBean.bugs}"></t:saveState>
+			<div class="acoes-principais">
+				<h:commandLink value="Novo" action="novo">
+					<p:ajax update="@form" />
+				</h:commandLink>
+				&#160;
+				<h:commandButton value="Listar" action="#{bugBean.lista}">
+					<p:ajax update="@form :mensagens" />
+				</h:commandButton>
+			</div>
+			<p:dataTable value="#{bugBean.bugs}" var="bug" styleClass="dados"
+				rowClasses="impar, par">
+				<p:column headerText="id">
+					#{bug.id}
+				</p:column>
+				<p:column headerText="sumario">
+					#{bug.sumario}
+				</p:column>
+				<p:column headerText="status">
+					#{bug.status}
+				</p:column>
+				<p:column headerText="responsavel">
+					#{bug.responsavel.nome}
+				</p:column>
+				<p:column headerText="criadoEm">
+					<h:outputText value="#{bug.criadoEm}">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandLink value="editar" action="edita" ajax="true" update="@form">
+						<f:setPropertyActionListener target="#{bugBean.bug}" value="#{bug}"></f:setPropertyActionListener>					
+					</p:commandLink>&#160;
+					<p:commandLink value="remover" action="#{bugBean.remove(bug)}"
+						onclick="return confirm('Deseja realmente excluir este Bug?');">
+						<p:ajax update="@form :mensagens"></p:ajax>					
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

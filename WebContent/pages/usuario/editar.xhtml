@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="corpo">
+			<h1>Edição de Usuário</h1>
+			<h:form id="form">
+				<t:saveState value="#{usuarioBean.usuario}"></t:saveState>
+					<p:outputLabel for="nome" value="Nome:"></p:outputLabel>
+					<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" styleClass="texto-longo"/>
+		
+					<p:outputLabel for="login" value="Login:"></p:outputLabel>
+					<p:inputText id="login" value="#{usuarioBean.usuario.login}"
+						readonly="true" />
+		
+					<p:outputLabel for="senha" value="Senha:"></p:outputLabel>
+					<p:password id="senha" value="#{usuarioBean.usuario.senha}" validator="senhaForte"/>
+					<div class="acoes-principais">
+						<p:commandButton value="Editar" action="#{usuarioBean.editar}">
+							<p:ajax update="form :mensagens"></p:ajax>
+						</p:commandButton>&#160;
+						<p:commandButton value="Voltar" action="lista.xhtml" immediate="true">
+						<p:ajax/>
+						</p:commandButton>
+					</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

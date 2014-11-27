@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="corpo">
+
+		<h1>Novo Bug</h1>
+		<h:form id="form">
+			<p:outputLabel value="Sumário" for="sumario" />
+			<p:inputText id="sumario" value="#{bugBean.bug.sumario}"
+				label="Sumário" required="true" />
+			<p:outputLabel value="Descrição" for="descricao" />
+			<p:inputTextarea id="descricao" rows="3" styleClass="texto-longo"
+				required="true" label="Descrição" value="#{bugBean.bug.descricao}">
+				<f:validateLength maximum="1000" />
+			</p:inputTextarea>
+			<p:outputLabel value="Status" for="status" />
+			<p:selectOneMenu id="status" value="#{bugBean.bug.status}">
+				<f:selectItems value="#{bugBean.todosOsStatus}" var="status"
+					itemLabel="#{status}" itemValue="#{status}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Responsável" for="responsavel" />
+			<p:selectOneMenu id="responsavel" label="Responsável"
+				value="#{bugBean.bug.responsavel.id}" required="true">
+				<f:selectItem itemLabel="Selecione um usuário"
+					noSelectionOption="true" />
+				<f:selectItems value="#{usuarioDao.lista()}" var="u"
+					itemLabel="#{u.nome}" itemValue="#{u.id}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Reportado em" for="criadoEm" />
+			<p:inputText id="criadoEm" value="#{bugBean.bug.criadoEm}"
+				label="Reportado em" required="true" />
+			<div class="acoes-principais">
+				<p:commandLink value="Voltar" action="lista" immediate="true">
+					<p:ajax update="@form" />
+				</p:commandLink>
+				&#160;
+				<p:commandButton value="Salvar" action="#{bugBean.adiciona}">
+					<f:ajax update="@form :mensagens" execute="@form" />
+				</p:commandButton>
+			</div>
+		</p:form>
+	</ui:define>
+</ui:composition>
+</html>

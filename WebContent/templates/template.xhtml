@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Sistema de controle de bugs - Bug Tracker</title>
+	<h:outputStylesheet library="css" name="app.css"></h:outputStylesheet>
+</h:head>
+<h:body>
+	<div id="cabecalho">
+		<ui:insert name="cabecalho">
+			<ul id="menu-principal">
+				<li><h:link value="Usuário"	outcome="/pages/usuario/lista.xhtml"></h:link></li>
+				<li><h:link value="Bug" outcome="/pages/bug/lista"></h:link></li>
+			</ul>
+			<div id="user-info">
+				<h:form>
+					#{usuarioLogado.usuario.login} -
+					<h:commandLink value="Sair" action="#{loginBean.sair}"></h:commandLink>
+				</h:form>
+			</div>
+		</ui:insert>
+	</div>
+	<h:messages id="mensagens" errorClass="errors" infoClass="notice" ></h:messages>
+	<div id="conteudo">
+		<div id="container">
+			<ui:insert name="corpo"></ui:insert>
+		</div>
+	</div>
+	<div id="rodape">
+		<div id="rodape" class="rodape-bar">
+			<strong>Bug Tracker</strong>
+		</div>
+	</div>
+</h:body>
+</html>
